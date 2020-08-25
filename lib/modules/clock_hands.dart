@@ -1,18 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart' as Vector;
 import 'dart:math';
+import 'package:vector_math/vector_math_64.dart' as Vector;
+import 'package:flutter/material.dart';
 import 'package:hello_Flutter/constants/constants.dart';
 
-class CurrentTimeClockHands extends CustomPainter {
+int worldHours = 0, worldMinutes = 0, worldSeconds = 0;
+
+class ClockHands extends StatelessWidget {
+  final DateTime time;
+  ClockHands(this.time) {
+    worldHours = time.hour;
+    worldMinutes = time.minute;
+    worldSeconds = time.second;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: HandsPainter(),
+    );
+  }
+}
+
+class HandsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var angle = Vector.radians(90);
     canvas.rotate(angle);
     final paint = Paint()..strokeCap = StrokeCap.round;
     var center = Offset((size.width / 2), (size.height / 2));
-
     final secondsP1 = center;
-    double secondsDegree = 360 / 60 * DateTime.now().second;
+    double secondsDegree = 360 / 60 * worldSeconds;
     double x = (size.width / 1) +
         (size.width / 1 - 110) * cos(Vector.radians(secondsDegree));
     double y = (size.width / 1) +
@@ -24,7 +41,7 @@ class CurrentTimeClockHands extends CustomPainter {
     canvas.drawLine(secondsP1, secondsP2, paint);
 
     final minutesP1 = center;
-    double minutesDegree = 360 / 60 * DateTime.now().minute;
+    double minutesDegree = 360 / 60 * worldMinutes;
     x = (size.width / 1) +
         (size.width / 1 - 80) * cos(Vector.radians(minutesDegree));
     y = (size.width / 1) +
@@ -36,7 +53,7 @@ class CurrentTimeClockHands extends CustomPainter {
     canvas.drawLine(minutesP1, minutesP2, paint);
 
     final hoursP1 = center;
-    double hoursDegree = 360 / 12 * (DateTime.now().hour - 12);
+    double hoursDegree = 360 / 12 * (worldHours - 12);
     x = (size.width / 2) +
         (size.width / 3 - 50) * cos(Vector.radians(hoursDegree));
     y = (size.width / 2) +
@@ -56,6 +73,8 @@ class CurrentTimeClockHands extends CustomPainter {
       //style every 5 minute
       paint.color = (i % 15 == 0) ? Colors.grey : Colors.white;
       paint.strokeWidth = (i % 15 == 0) ? 4 : 1;
+
+//      int distance = (i%15==0)?10:15;
 
       double x1 = (size.width / 2) +
           (size.width / 3 + 118) * cos(Vector.radians(minute));
@@ -77,7 +96,6 @@ class CurrentTimeClockHands extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
     return true;
   }
 }

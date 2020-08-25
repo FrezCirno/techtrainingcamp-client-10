@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hello_Flutter/constants/constants.dart';
 import 'package:hello_Flutter/modules/clock_container.dart';
-import 'package:hello_Flutter/modules/current_time_clock_hands.dart';
 import 'package:hello_Flutter/modules/fancy_button.dart';
 import 'package:hello_Flutter/modules/top_row.dart';
-import 'package:hello_Flutter/modules/world_time_clock_hands.dart';
+import 'package:hello_Flutter/modules/clock_hands.dart';
 
 import 'location_screen.dart';
 
@@ -24,7 +23,7 @@ class ClockPage extends StatefulWidget {
 
 class ClockPageState extends State<ClockPage> {
   String locationName = "";
-  DateTime time;
+  DateTime time = DateTime.now();
   Timer timer;
   Choice choice = Choice.LocalTime;
 
@@ -69,16 +68,13 @@ class ClockPageState extends State<ClockPage> {
   }
 
   void _getWorldTime() async {
-    if (!await checkConnection()) {
-      return;
-    }
     Response res = await get(api + locationName);
     if (res.statusCode >= 400) return;
     Map worldData = jsonDecode(res.body);
-    final unixtime = worldData['datetime'];
+    final datetime = worldData['datetime'];
     if (this.mounted) {
       setState(() {
-        time = DateTime.fromMicrosecondsSinceEpoch(unixtime);
+        time = DateTime.parse(datetime);
       });
     }
   }
@@ -108,7 +104,7 @@ class ClockPageState extends State<ClockPage> {
                     },
                   ),
                 ) ??
-                'Europe/London';
+                locationName;
             setLocationPref(locationName);
           },
         ),
@@ -126,13 +122,7 @@ class ClockPageState extends State<ClockPage> {
         ),
         Center(
           child: ClockContainer(
-            child: choice == Choice.LocalTime
-                ? CustomPaint(
-                    painter: CurrentTimeClockHands(),
-                  )
-                : WorldTimeClockHands(
-                    worldLocation: locationName,
-                  ),
+            child: ClockHands(time),
           ),
         ),
         SizedBox(
@@ -144,21 +134,6 @@ class ClockPageState extends State<ClockPage> {
             FancyButton(
               onPress: () {
                 choice = Choice.WorldTime;
-                // if (await DataConnectionChecker().hasConnection == true) {
-                //   print('Has a Internet Connection');
-                // } else {
-                //     choice = Choice.LocalTime;
-                //   final snackbar = SnackBar(
-                //     duration: Duration(seconds: 3),
-                //     content: Text(
-                //       "No Internet Connection",
-                //       style: TextStyle(
-                //         fontFamily: 'Varela',
-                //         fontSize: 16.0,
-                //       ),
-                //     ),
-                //   );
-                //   Scaffold.of(context).showSnackBar(snackbar);
               },
               label: locationName?.split('/')?.last,
               gradient: choice == Choice.WorldTime
