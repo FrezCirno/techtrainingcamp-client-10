@@ -36,16 +36,13 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
         backgroundColor: Color(silver),
         body: TabBarView(
           controller: controller,
-          children: <Widget>[
-            ClockPage(),
-            ClockPage(),
-            WeatherWidget(),
-          ],
+          children: tabPages,
         ),
         bottomNavigationBar: SizedBox(
           height: 65,
           child: Material(
-            color: Colors.blue,
+            color: Colors.black,
+            textStyle: TextStyle(color: Colors.white),
             child: TabBar(
               controller: controller,
               tabs: <Tab>[
