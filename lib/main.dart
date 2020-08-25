@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_Flutter/clock_screen.dart';
 import 'package:hello_Flutter/constants/constants.dart';
+import 'package:hello_Flutter/weather/weather.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
   final List<Widget> tabPages = [
     ClockPage(),
     ClockPage(),
-    ClockPage(),
+    WeatherWidget(),
   ];
   TabController controller;
 
@@ -38,7 +39,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
           children: <Widget>[
             ClockPage(),
             ClockPage(),
-            ClockPage(),
+            WeatherWidget(),
           ],
         ),
         bottomNavigationBar: SizedBox(
