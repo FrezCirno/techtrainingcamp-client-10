@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hello_Flutter/constants/constants.dart';
@@ -9,7 +8,6 @@ import 'package:hello_Flutter/weather/weather_data.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
-
 class WeatherWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -18,7 +16,7 @@ class WeatherWidget extends StatefulWidget {
 }
 
 class WeatherState extends State<WeatherWidget> {
-  WeatherData weather=WeatherData.empty();
+  WeatherData weather = WeatherData.empty();
 
   WeatherState() {
     _getWeather();
@@ -62,21 +60,22 @@ class WeatherState extends State<WeatherWidget> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(weather.cond,
+              Text(weather.cond,
                   style: TextStyle(
                     fontWeight: FontWeight.w200,
                     letterSpacing: 5,
                     fontSize: 40,
                     color: Color(purple),
                   )),
-                  SizedBox(
+              SizedBox(
                 height: 20,
               ),
-                  Image.asset("weather-icon/color-256/" + weather.pic,width: 200,height: 200),
-                SizedBox(
+              Image.asset("weather-icon/color-256/" + weather.pic,
+                  width: 200, height: 200),
+              SizedBox(
                 height: 20,
               ),
-              Text(" "+weather.tmp,
+              Text(" " + weather.tmp,
                   style: TextStyle(
                     fontWeight: FontWeight.w100,
                     letterSpacing: 5,

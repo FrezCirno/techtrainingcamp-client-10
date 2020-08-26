@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_Flutter/constants/constants.dart';
@@ -16,26 +15,26 @@ class HourlyWeatherWidget extends StatefulWidget {
 }
 
 class HourlyWeatherState extends State<HourlyWeatherWidget> {
-  List<HourlyWeatherData> weathers=List<HourlyWeatherData>();
+  List<HourlyWeatherData> weathers = List<HourlyWeatherData>();
 
-  HourlyWeatherState(){
+  HourlyWeatherState() {
     _getWeather();
   }
 
-  void _getWeather() async{
+  void _getWeather() async {
     List<HourlyWeatherData> data = await _fetchWeather();
-    setState((){
+    setState(() {
       weathers = data;
     });
   }
 
-  Future<List<HourlyWeatherData>> _fetchWeather() async{
+  Future<List<HourlyWeatherData>> _fetchWeather() async {
     final position = await Location.fetchLocation();
     final response = await http.get(
-      'https://devapi.heweather.net/v7/weather/24h?location=${position.longitude},${position.latitude}&key=9a610fe5bae14bcb9f9ae41fbad6f0b3');
-    if(response.statusCode == 200){
+        'https://devapi.heweather.net/v7/weather/24h?location=${position.longitude},${position.latitude}&key=9a610fe5bae14bcb9f9ae41fbad6f0b3');
+    if (response.statusCode == 200) {
       return HourlyWeatherData.fromJson(json.decode(response.body));
-    }else{
+    } else {
       return List<HourlyWeatherData>();
     }
   }
@@ -45,27 +44,34 @@ class HourlyWeatherState extends State<HourlyWeatherWidget> {
     return Container(
       height: 80,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: weathers.length,
-        padding: EdgeInsets.only(left: 10, right: 10),
-        itemBuilder: (context, index) {
-          final item = this.weathers[index];
-          return Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10,),
-            child: Center(
+          scrollDirection: Axis.horizontal,
+          itemCount: weathers.length,
+          padding: EdgeInsets.only(left: 10, right: 10),
+          itemBuilder: (context, index) {
+            final item = this.weathers[index];
+            return Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+              ),
+              child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                        item.time,
-                        style: TextStyle(color: Color(purple)),
+                      item.time,
+                      style: TextStyle(color: Color(purple)),
                     ),
                     SizedBox(
                       height: 5,
                     ),
-                    Image.asset("weather-icon/color-256/"+ item.pic,width:30,height: 30,),
+                    Image.asset(
+                      "weather-icon/color-256/" + item.pic,
+                      width: 30,
+                      height: 30,
+                    ),
                     SizedBox(
-                    height: 10,
+                      height: 10,
                     ),
                     Text(
                       item.tmp,
@@ -73,11 +79,9 @@ class HourlyWeatherState extends State<HourlyWeatherWidget> {
                     )
                   ],
                 ),
-            ),
-          );
-        }
-      ),
-    );   
-  }       
+              ),
+            );
+          }),
+    );
+  }
 }
-

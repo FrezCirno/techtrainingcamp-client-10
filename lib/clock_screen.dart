@@ -105,6 +105,7 @@ class ClockPageState extends State<ClockPage> {
                   ),
                 ) ??
                 locationName;
+            choice = Choice.WorldTime;
             setLocationPref(locationName);
           },
         ),
