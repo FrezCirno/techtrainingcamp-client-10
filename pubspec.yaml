@@ -27,6 +27,7 @@ dependencies:
   shared_preferences: ^0.5.8
   geolocator: ^5.3.2+2
   permission_handler: ^3.1.0
+  audioplayers: ^0.13.1
   flutter:
     sdk: flutter
 
@@ -56,6 +57,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
       - weather-icon/bw-256/
+      - assets/alarm-sound/demo.mp3
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

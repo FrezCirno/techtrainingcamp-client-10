@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_Flutter/alarm/TimerPage.dart';
 import 'package:hello_Flutter/clock_screen.dart';
 import 'package:hello_Flutter/constants/constants.dart';
 import 'package:hello_Flutter/weather/weather.dart';
+
+import 'alarm/AlarmPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +19,8 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   final List<Widget> tabPages = [
     ClockPage(),
-    ClockPage(),
+    AlarmPage(),
+    TimerPage(),
     WeatherWidget(),
   ];
   TabController controller;
@@ -47,7 +51,8 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
               controller: controller,
               tabs: <Tab>[
                 new Tab(text: "时钟", icon: Icon(Icons.home)),
-                new Tab(text: "闹钟", icon: Icon(Icons.list)),
+                new Tab(text: "闹钟", icon: Icon(Icons.alarm)),
+                new Tab(text: "计时", icon: Icon(Icons.timer)),
                 new Tab(text: "天气", icon: Icon(Icons.message)),
               ],
             ),
