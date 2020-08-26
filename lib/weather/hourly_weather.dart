@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hello_Flutter/constants/constants.dart';
 import 'package:hello_Flutter/weather/location.dart';
 import 'package:http/http.dart' as http;
 import 'hourly_weather_data.dart';
@@ -57,18 +58,18 @@ class HourlyWeatherState extends State<HourlyWeatherWidget> {
                   children: <Widget>[
                     Text(
                         item.time,
-                        style: TextStyle(color: Colors.black54),
+                        style: TextStyle(color: Color(purple)),
                     ),
                     SizedBox(
                       height: 5,
                     ),
-                    Image.asset("weather-icon/bw-256/"+ item.pic,width:30,height: 30,),
+                    Image.asset("weather-icon/color-256/"+ item.pic,width:30,height: 30,),
                     SizedBox(
                     height: 10,
                     ),
                     Text(
                       item.tmp,
-                      style: TextStyle(color: Colors.black54),
+                      style: TextStyle(color: Color(purple)),
                     )
                   ],
                 ),

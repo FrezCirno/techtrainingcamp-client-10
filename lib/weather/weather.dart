@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hello_Flutter/constants/constants.dart';
 import 'package:hello_Flutter/weather/hourly_weather.dart';
 import 'package:hello_Flutter/weather/location.dart';
 import 'package:hello_Flutter/weather/weather_data.dart';
@@ -44,15 +45,15 @@ class WeatherState extends State<WeatherWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(silver),
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Color(silver),
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color(purple)),
               )
             ],
           ),
@@ -66,12 +67,12 @@ class WeatherState extends State<WeatherWidget> {
                     fontWeight: FontWeight.w200,
                     letterSpacing: 5,
                     fontSize: 40,
-                    color: Colors.black,
+                    color: Color(purple),
                   )),
                   SizedBox(
                 height: 20,
               ),
-                  Image.asset("weather-icon/bw-256/" + weather.pic,width: 200,height: 200),
+                  Image.asset("weather-icon/color-256/" + weather.pic,width: 200,height: 200),
                 SizedBox(
                 height: 20,
               ),
@@ -80,18 +81,18 @@ class WeatherState extends State<WeatherWidget> {
                     fontWeight: FontWeight.w100,
                     letterSpacing: 5,
                     fontSize: 80,
-                    color: Colors.black,
+                    color: Color(purple),
                   )),
               Padding(
                 child: Divider(
-                  color: Colors.black.withAlpha(50),
+                  color: Color(purple).withAlpha(50),
                 ),
                 padding: EdgeInsets.all(10),
               ),
               HourlyWeatherWidget(),
               Padding(
                 child: Divider(
-                  color: Colors.black.withAlpha(50),
+                  color: Color(purple).withAlpha(50),
                 ),
                 padding: EdgeInsets.all(10),
               ),
@@ -101,11 +102,11 @@ class WeatherState extends State<WeatherWidget> {
                   Column(children: [
                     Text(
                       "风速",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Color(purple)),
                     ),
                     Text(
                       "${weather.wind}",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Color(purple)),
                     )
                   ]),
                   Padding(
@@ -114,17 +115,17 @@ class WeatherState extends State<WeatherWidget> {
                         child: Container(
                       width: 1,
                       height: 30,
-                      color: Colors.black,
+                      color: Color(purple),
                     )),
                   ),
                   Column(children: [
                     Text(
                       "湿度",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Color(purple)),
                     ),
                     Text(
                       "${weather.hum}",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Color(purple)),
                     )
                   ]),
                 ],
