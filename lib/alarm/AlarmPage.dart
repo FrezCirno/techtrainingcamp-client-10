@@ -110,7 +110,7 @@ class _AlarmPageState extends State<AlarmPage> {
   void _stopAlarm() {
     cancelTimer();
     // 停止播放
-    _audioPlayer.release();
+    _audioPlayer.pause();
   }
 
   void _setAlarmTime() async{
@@ -165,13 +165,13 @@ class _AlarmPageState extends State<AlarmPage> {
   void initState() {
     _alarmTime = DateTime.now();
     _seconds = 0;
-    _audioPlayer = AudioPlayer();
+    _audioPlayer = new AudioPlayer();
+    _audioPlayer.setVolume(0.5);
     super.initState();
   }
 
   void play() async {
-    _audioPlayer.setVolume(0.9);
-    int result = await _audioPlayer.play('assets/alarm-sound/demo.mp3', isLocal: true);
+    int result = await _audioPlayer.play('assets/alarm-sound/demo.mp3');
     if (result == 1) {
       // success
       print('play success');
@@ -204,8 +204,9 @@ class _AlarmPageState extends State<AlarmPage> {
 
   @override
   void dispose() {
-    super.dispose();
     cancelTimer();
+    _audioPlayer.release();
+    super.dispose();
   }
 
 }
